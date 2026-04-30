@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ro'yxatdan o'ting</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark: #1a7a35;
+    --green-mid: #22a044;
+    --green-light: #6dd46e;
+    --green-bright: #4cc94d;
+    --yellow: #f5b800;
+    --yellow-hover: #e0a800;
+    --white: #ffffff;
+    --text-dark: #0d3b1e;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'Nunito', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ── Full-screen background ── */
+  .bg {
+    position: fixed; inset: 0;
+    background: var(--green-mid);
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  /* SVG pattern overlay */
+  .bg svg {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    opacity: 0.55;
+  }
+
+  /* ── Page wrapper ── */
+  .page {
+    position: relative; z-index: 10;
+    width: 100%; height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--green-mid);
+    border-radius: 28px;
+    width: 100%;
+    max-width: 1100px;
+    min-height: 420px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.30), 0 0 0 2px rgba(255,255,255,0.08);
+    position: relative;
+  }
+
+  /* Pattern inside card (left side bg) */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cpath fill='none' stroke='%2366d068' stroke-width='18' stroke-linecap='round' stroke-linejoin='round' d='M60 40 C120 10 200 60 170 130 C140 200 60 190 40 260 C20 330 80 380 150 360 C220 340 260 260 340 270 C420 280 450 360 520 350 C590 340 630 260 700 250 C770 240 810 300 800 370 M170 130 C230 100 310 140 300 210 C290 280 210 290 200 360 C190 430 250 470 320 450 C390 430 420 350 490 340 M300 210 C370 180 440 230 430 310 C420 390 340 400 330 470 M490 340 C560 310 640 360 630 440 M60 40 C100 -10 200 30 230 100 C260 170 200 240 250 300 C300 360 390 340 430 310 M730 50 C790 20 850 70 840 150 C830 230 750 240 740 320 C730 400 790 440 770 510 M840 150 C900 120 960 170 950 250 C940 330 860 340 840 420'/%3E%3C/svg%3E");
+    background-size: cover;
+    opacity: 0.28;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── LEFT – headline ── */
+  .left {
+    position: relative; z-index: 1;
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .deco-dots {
+    position: absolute;
+    top: 28px; left: 40px;
+    display: flex; gap: 10px;
+  }
+  .deco-dots span {
+    display: block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+  }
+  .deco-dots span:nth-child(2) { background: rgba(255,255,255,0.25); }
+
+  /* Decorative squiggles */
+  .squiggle {
+    position: absolute;
+    opacity: 0.6;
+  }
+  .squiggle-tl { top: 50px; left: 36px; }
+  .squiggle-bl { bottom: 40px; left: 30px; }
+
+  .headline {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(28px, 3.2vw, 48px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+
+  .subtext {
+    font-size: clamp(14px, 1.2vw, 17px);
+    font-weight: 600;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.6;
+    max-width: 340px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50px;
+    padding: 8px 16px;
+    width: fit-content;
+    backdrop-filter: blur(8px);
+  }
+  .badge-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--yellow);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%,100%{transform:scale(1);opacity:1}
+    50%{transform:scale(1.4);opacity:.7}
+  }
+  .badge span { font-size: 13px; font-weight: 700; color: var(--white); }
+
+  /* ── RIGHT – form ── */
+  .right {
+    position: relative; z-index: 1;
+    padding: 48px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(2px);
+  }
+
+  .field {
+    position: relative;
+  }
+
+  input, select {
+    width: 100%;
+    background: rgba(255,255,255,0.97);
+    border: 2px solid transparent;
+    border-radius: 50px;
+    padding: 16px 24px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder { color: #aaa; font-weight: 500; }
+
+  input:focus, select:focus {
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 4px rgba(245,184,0,0.2);
+    transform: translateY(-1px);
+  }
+
+  /* Custom select arrow */
+  .select-wrap { position: relative; }
+  .select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 22px; top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid var(--green-dark);
+    pointer-events: none;
+  }
+
+  /* Phone field */
+  .phone-wrap {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.97);
+    border-radius: 50px;
+    border: 2px solid transparent;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  }
+  .phone-wrap:focus-within {
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 4px rgba(245,184,0,0.2);
+    transform: translateY(-1px);
+  }
+  .phone-flag {
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 14px 0 20px;
+    border-right: 2px solid #e5e5e5;
+    height: 100%;
+    font-size: 13px; font-weight: 700; color: var(--text-dark);
+    white-space: nowrap;
+    min-height: 52px;
+  }
+  .flag-img {
+    width: 24px; height: 16px;
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .flag-img .f1{background:#1eb53a;flex:1}
+  .flag-img .f2{background:#fff;flex:1}
+  .flag-img .f3{background:#ce1126;flex:1}
+  .phone-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 16px 20px;
+    font-size: 15px; font-weight: 600;
+    color: var(--text-dark);
+    outline: none;
+  }
+  .phone-input::placeholder { color: #bbb; font-weight: 500; }
+
+  /* Submit button */
+  .btn {
+    width: 100%;
+    padding: 18px;
+    background: var(--yellow);
+    border: none;
+    border-radius: 50px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 6px 20px rgba(245,184,0,0.45);
+    margin-top: 4px;
+  }
+  .btn:hover {
+    background: var(--yellow-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(245,184,0,0.55);
+  }
+  .btn:active { transform: translateY(0); }
+
+  /* ── Success overlay ── */
+  .success-overlay {
+    position: absolute; inset: 0;
+    background: var(--green-dark);
+    border-radius: 28px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px;
+    z-index: 20;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .success-overlay.show { opacity: 1; pointer-events: all; }
+  .success-icon {
+    width: 72px; height: 72px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    animation: popIn 0.5s cubic-bezier(.36,1.6,.6,1) both;
+  }
+  @keyframes popIn {
+    from{transform:scale(0)}
+    to{transform:scale(1)}
+  }
+  .success-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 22px; font-weight: 900;
+    color: var(--white);
+  }
+  .success-sub {
+    font-size: 15px; font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    text-align: center; max-width: 280px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    html, body { overflow: auto; }
+    .page { height: auto; min-height: 100vh; padding: 20px 16px; }
+    .card { grid-template-columns: 1fr; min-height: auto; }
+    .left { padding: 40px 28px 28px; }
+    .right { padding: 28px 28px 40px; }
+    .headline { font-size: 30px; }
+    .squiggle-tl { display: none; }
+  }
+
+  /* Entry animation */
+  .card { animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(30px) scale(0.97); }
+    to   { opacity:1; transform: translateY(0)   scale(1);    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Full-screen green pattern background -->
+<div class="bg">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <filter id="blur"><feGaussianBlur stdDeviation="1.5"/></filter>
+    </defs>
+    <!-- Voronoi-like cells matching image 2 -->
+    <g fill="none" stroke="#6dd468" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#blur)">
+      <!-- Top row cells -->
+      <path d="M-20 80 C80 -20 240 30 290 140 C340 250 240 330 160 370 C80 410 -10 370 -20 270 Z"/>
+      <path d="M290 140 C370 40 530 -10 580 100 C630 210 540 300 430 320 C320 340 260 250 290 140 Z"/>
+      <path d="M580 100 C650 -20 820 10 870 120 C920 230 840 320 720 340 C600 360 530 220 580 100 Z"/>
+      <path d="M870 120 C940 0 1110 30 1160 150 C1210 270 1120 360 1000 370 C880 380 820 250 870 120 Z"/>
+      <path d="M1160 150 C1240 30 1420 60 1460 190 C1500 320 1400 400 1280 400 C1160 400 1100 270 1160 150 Z"/>
+      <!-- Middle row -->
+      <path d="M-20 370 C60 280 200 310 240 420 C280 530 180 610 70 600 C-40 590 -60 470 -20 370 Z"/>
+      <path d="M160 370 C270 290 430 330 450 460 C470 590 350 650 230 630 C110 610 60 490 160 370 Z"/>
+      <path d="M430 320 C560 250 700 300 710 440 C720 580 590 650 460 630 C330 610 300 400 430 320 Z"/>
+      <path d="M710 440 C760 300 910 280 960 400 C1010 520 920 620 790 630 C660 640 660 570 710 440 Z"/>
+      <path d="M960 400 C1030 280 1190 290 1240 420 C1290 550 1180 640 1050 640 C920 640 880 520 960 400 Z"/>
+      <path d="M1240 420 C1310 290 1470 310 1500 450 C1530 590 1420 660 1300 650 C1180 640 1170 540 1240 420 Z"/>
+      <!-- Bottom row -->
+      <path d="M70 600 C150 510 300 530 330 650 C360 770 260 870 130 860 C0 850 -10 700 70 600 Z"/>
+      <path d="M330 650 C400 540 570 560 590 690 C610 820 490 900 360 890 C230 880 250 770 330 650 Z"/>
+      <path d="M590 690 C650 570 820 580 840 710 C860 840 730 920 600 910 C470 900 520 810 590 690 Z"/>
+      <path d="M840 710 C900 580 1070 590 1090 730 C1110 870 970 940 840 920 C710 900 770 840 840 710 Z"/>
+      <path d="M1090 730 C1160 590 1340 610 1360 760 C1380 910 1230 970 1100 950 C970 930 1010 870 1090 730 Z"/>
+      <path d="M1360 760 C1430 630 1520 660 1540 810 C1560 960 1460 1010 1350 980 C1240 950 1280 890 1360 760 Z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- Main page -->
+<div class="page">
+  <div class="card">
+
+    <!-- LEFT -->
+    <div class="left">
+      <div class="deco-dots">
+        <span></span><span></span>
+      </div>
+
+      <!-- Top squiggle -->
+      <svg class="squiggle squiggle-tl" width="80" height="50" viewBox="0 0 80 50">
+        <path d="M5 40 C15 5 25 45 35 20 C45 -5 55 40 65 15 C70 5 75 30 78 20"
+              fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+
+      <div class="badge">
+        <div class="badge-dot"></div>
+        <span>Qabul davom etmoqda</span>
+      </div>
+
+      <h1 class="headline">Ro'yxatdan o'ting</h1>
+
+      <p class="subtext">
+        Eslatma!
+        Maktabimiz Toshkent shahri va Samarqand shahrida joylashgan. 
+        Biz faqat tibbiyotga ixtisoslashgan maktabmiz va qabul 5-sinfdan.
+        Yotoqxona mavjud emas.
+      </p>
+
+      <!-- Bottom squiggle -->
+      <svg class="squiggle squiggle-bl" width="70" height="60" viewBox="0 0 70 60">
+        <path d="M5 50 C10 20 25 55 30 30 C35 5 50 45 60 15"
+              fill="none" stroke="rgba(255,80,80,0.7)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="12" cy="55" r="4" fill="rgba(255,80,80,0.5)"/>
+        <circle cx="55" cy="10" r="3" fill="rgba(255,255,255,0.4)"/>
+      </svg>
+    </div>
+
+    <!-- RIGHT – Form -->
+    <div class="right">
+      <div class="field">
+        <input type="text" id="name" placeholder="Ismingiz" autocomplete="off"/>
+      </div>
+
+      <div class="field select-wrap">
+        <select id="district">
+          <option value="" disabled selected>Qaysi filialimiz sizga qulay?</option>
+          <option>Tinchlik filiali (Toshkent shahri)</option>
+          <option>Chilonzor filiali (Toshkent shahri)</option>
+          <option>Yunusobod filiali (Toshkent shahri)</option>
+          <option>Samarqand filiali (Samarqand shahri)</option>
+        </select>
+      </div>
+
+      <div class="field select-wrap">
+        <select id="grade">
+          <option value="" disabled selected>Farzandingiz yangi o’quv yilidan qaysi sinfga o’tadi?</option>
+          <option>5-sinf</option>
+          <option>6-sinf</option>
+          <option>7-sinf</option>
+          <option>8-sinf</option>
+          <option>9-sinf</option>
+          <option>10-sinf</option>
+        </select>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone-flag">
+          +998
+        </div>
+        <input class="phone-input" type="tel" id="phone" placeholder="00-000-0000" maxlength="12" autocomplete="off"/>
+      </div>
+
+      <button class="btn" onclick="handleSubmit()">Ma'lumotlarni jo'natish</button>
+    </div>
+
+    <!-- Success overlay -->
+    <div class="success-overlay" id="success">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Ariza qabul qilindi!</div>
+      <p class="success-sub">Tez orada siz bilan bog'lanamiz. Rahmat!</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Phone mask
+  document.getElementById('phone').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g,'');
+    if (v.length > 9) v = v.slice(0,9);
+    let out = '';
+    if (v.length > 0) out = v.slice(0,2);
+    if (v.length > 2) out += '-' + v.slice(2,5);
+    if (v.length > 5) out += '-' + v.slice(5,7);
+    if (v.length > 7) out += '-' + v.slice(7,9);
+    e.target.value = out;
+  });
+
+  function handleSubmit() {
+    const name = document.getElementById('name').value.trim();
+    const district = document.getElementById('district').value;
+    const grade = document.getElementById('grade').value;
+    const phone = document.getElementById('phone').value.trim();
+
+    if (!name) { shake('name'); return; }
+    if (!district) { shake('district'); return; }
+    if (!grade) { shake('grade'); return; }
+    if (phone.replace(/\D/g,'').length < 9) { shakePhone(); return; }
+
+    document.getElementById('success').classList.add('show');
+  }
+
+  function shake(id) {
+    const el = document.getElementById(id);
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = 'shake 0.4s ease';
+    el.focus();
+    setTimeout(() => el.style.animation = '', 500);
+  }
+
+  function shakePhone() {
+    const el = document.querySelector('.phone-wrap');
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = 'shake 0.4s ease';
+    setTimeout(() => el.style.animation = '', 500);
+  }
+
+  // Inject shake keyframes
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes shake {
+      0%,100%{transform:translateX(0)}
+      20%{transform:translateX(-8px)}
+      40%{transform:translateX(8px)}
+      60%{transform:translateX(-5px)}
+      80%{transform:translateX(5px)}
+    }
+    .phone-wrap { animation-fill-mode: both; }
+  `;
+  document.head.appendChild(style);
+</script>
+</body>
+</html>
