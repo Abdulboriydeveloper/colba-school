@@ -9,10 +9,9 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --green-dark: #1a7a35;
-    --green-mid: #22a044;
-    --green-light: #6dd46e;
-    --green-bright: #4cc94d;
+    --green-dark: #1a7235;
+    --green-mid: #209146;
+    --green-light: #91cc52;
     --yellow: #f5b800;
     --yellow-hover: #e0a800;
     --white: #ffffff;
@@ -28,17 +27,13 @@
   /* ── Full-screen background ── */
   .bg {
     position: fixed; inset: 0;
-    background: var(--green-mid);
     z-index: 0;
     overflow: hidden;
   }
-
-  /* SVG pattern overlay */
   .bg svg {
     position: absolute;
     width: 100%; height: 100%;
     top: 0; left: 0;
-    opacity: 0.55;
   }
 
   /* ── Page wrapper ── */
@@ -53,147 +48,130 @@
 
   /* ── Card ── */
   .card {
-    background: var(--green-mid);
+    background: rgba(32, 145, 70, 0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border-radius: 28px;
     width: 100%;
-    max-width: 1100px;
-    min-height: 420px;
+    max-width: 1060px;
+    min-height: 430px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.30), 0 0 0 2px rgba(255,255,255,0.08);
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.25),
+      0 0 0 1.5px rgba(255,255,255,0.18),
+      inset 0 1px 0 rgba(255,255,255,0.22);
     position: relative;
+    animation: fadeUp 0.65s cubic-bezier(.22,1,.36,1) both;
   }
 
-  /* Pattern inside card (left side bg) */
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cpath fill='none' stroke='%2366d068' stroke-width='18' stroke-linecap='round' stroke-linejoin='round' d='M60 40 C120 10 200 60 170 130 C140 200 60 190 40 260 C20 330 80 380 150 360 C220 340 260 260 340 270 C420 280 450 360 520 350 C590 340 630 260 700 250 C770 240 810 300 800 370 M170 130 C230 100 310 140 300 210 C290 280 210 290 200 360 C190 430 250 470 320 450 C390 430 420 350 490 340 M300 210 C370 180 440 230 430 310 C420 390 340 400 330 470 M490 340 C560 310 640 360 630 440 M60 40 C100 -10 200 30 230 100 C260 170 200 240 250 300 C300 360 390 340 430 310 M730 50 C790 20 850 70 840 150 C830 230 750 240 740 320 C730 400 790 440 770 510 M840 150 C900 120 960 170 950 250 C940 330 860 340 840 420'/%3E%3C/svg%3E");
-    background-size: cover;
-    opacity: 0.28;
-    pointer-events: none;
-    z-index: 0;
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(28px) scale(0.97); }
+    to   { opacity:1; transform: translateY(0)    scale(1);    }
   }
 
-  /* ── LEFT – headline ── */
+  /* ── LEFT ── */
   .left {
     position: relative; z-index: 1;
-    padding: 56px 48px;
+    padding: 52px 44px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 24px;
+    gap: 22px;
   }
 
   .deco-dots {
     position: absolute;
-    top: 28px; left: 40px;
-    display: flex; gap: 10px;
+    top: 32px; right: 28px;
+    display: flex; gap: 8px;
   }
   .deco-dots span {
-    display: block;
-    width: 10px; height: 10px;
+    display: block; width: 9px; height: 9px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.45);
   }
-  .deco-dots span:nth-child(2) { background: rgba(255,255,255,0.25); }
+  .deco-dots span:last-child { background: rgba(255,255,255,0.2); }
 
-  /* Decorative squiggles */
-  .squiggle {
-    position: absolute;
-    opacity: 0.6;
-  }
-  .squiggle-tl { top: 50px; left: 36px; }
-  .squiggle-bl { bottom: 40px; left: 30px; }
-
-  .headline {
-    font-family: 'Unbounded', sans-serif;
-    font-size: clamp(28px, 3.2vw, 48px);
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1.15;
-    letter-spacing: -0.5px;
-  }
-
-  .subtext {
-    font-size: clamp(14px, 1.2vw, 17px);
-    font-weight: 600;
-    color: rgba(255,255,255,0.82);
-    line-height: 1.6;
-    max-width: 340px;
-  }
+  .squiggle { position: absolute; }
+  .squiggle-tl { top: 64px; left: 32px; opacity: 0.5; }
+  .squiggle-bl { bottom: 32px; left: 28px; opacity: 0.55; }
 
   .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 50px;
-    padding: 8px 16px;
-    width: fit-content;
-    backdrop-filter: blur(8px);
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 50px; padding: 8px 16px;
+    width: fit-content; backdrop-filter: blur(8px);
   }
   .badge-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
+    width: 8px; height: 8px; border-radius: 50%;
     background: var(--yellow);
     animation: pulse 1.8s infinite;
   }
   @keyframes pulse {
     0%,100%{transform:scale(1);opacity:1}
-    50%{transform:scale(1.4);opacity:.7}
+    50%{transform:scale(1.45);opacity:.65}
   }
   .badge span { font-size: 13px; font-weight: 700; color: var(--white); }
 
-  /* ── RIGHT – form ── */
-  .right {
-    position: relative; z-index: 1;
-    padding: 48px 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(2px);
+  .headline {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(26px, 2.8vw, 42px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.18;
+    letter-spacing: -0.4px;
   }
 
-  .field {
-    position: relative;
+  .subtext {
+    font-size: clamp(13px, 1.1vw, 15.5px);
+    font-weight: 600;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.65;
+    max-width: 330px;
   }
+  .subtext strong {
+    color: var(--yellow);
+    font-weight: 800;
+  }
+
+  /* ── RIGHT ── */
+  .right {
+    position: relative; z-index: 1;
+    padding: 44px 44px;
+    display: flex; flex-direction: column;
+    justify-content: center; gap: 14px;
+    background: rgba(255,255,255,0.07);
+    border-left: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .field { position: relative; }
 
   input, select {
     width: 100%;
-    background: rgba(255,255,255,0.97);
+    background: rgba(255,255,255,0.96);
     border: 2px solid transparent;
     border-radius: 50px;
-    padding: 16px 24px;
+    padding: 15px 22px;
     font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 15px; font-weight: 600;
     color: var(--text-dark);
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-    appearance: none;
-    -webkit-appearance: none;
+    appearance: none; -webkit-appearance: none;
   }
-
   input::placeholder { color: #aaa; font-weight: 500; }
-
   input:focus, select:focus {
     border-color: var(--yellow);
-    box-shadow: 0 0 0 4px rgba(245,184,0,0.2);
+    box-shadow: 0 0 0 4px rgba(245,184,0,0.22);
     transform: translateY(-1px);
   }
 
-  /* Custom select arrow */
   .select-wrap { position: relative; }
   .select-wrap::after {
     content: '';
-    position: absolute;
-    right: 22px; top: 50%;
+    position: absolute; right: 20px; top: 50%;
     transform: translateY(-50%);
     width: 0; height: 0;
     border-left: 6px solid transparent;
@@ -202,104 +180,81 @@
     pointer-events: none;
   }
 
-  /* Phone field */
   .phone-wrap {
-    display: flex;
-    align-items: center;
-    background: rgba(255,255,255,0.97);
-    border-radius: 50px;
-    border: 2px solid transparent;
+    display: flex; align-items: center;
+    background: rgba(255,255,255,0.96);
+    border-radius: 50px; border: 2px solid transparent;
     overflow: hidden;
     transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
   }
   .phone-wrap:focus-within {
     border-color: var(--yellow);
-    box-shadow: 0 0 0 4px rgba(245,184,0,0.2);
+    box-shadow: 0 0 0 4px rgba(245,184,0,0.22);
     transform: translateY(-1px);
   }
   .phone-flag {
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 7px;
     padding: 0 14px 0 20px;
-    border-right: 2px solid #e5e5e5;
-    height: 100%;
-    font-size: 13px; font-weight: 700; color: var(--text-dark);
+    border-right: 2px solid #e8e8e8;
+    min-height: 51px;
+    font-size: 13px; font-weight: 800; color: var(--text-dark);
     white-space: nowrap;
-    min-height: 52px;
   }
   .flag-img {
-    width: 24px; height: 16px;
-    border-radius: 3px;
-    overflow: hidden;
-    display: flex; flex-direction: column;
+    width: 22px; height: 15px; border-radius: 2px;
+    overflow: hidden; display: flex; flex-direction: column;
   }
   .flag-img .f1{background:#1eb53a;flex:1}
   .flag-img .f2{background:#fff;flex:1}
   .flag-img .f3{background:#ce1126;flex:1}
   .phone-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    padding: 16px 20px;
+    flex: 1; background: transparent; border: none;
+    border-radius: 0; padding: 15px 20px;
+    font-family: 'Nunito', sans-serif;
     font-size: 15px; font-weight: 600;
-    color: var(--text-dark);
-    outline: none;
+    color: var(--text-dark); outline: none;
   }
   .phone-input::placeholder { color: #bbb; font-weight: 500; }
 
-  /* Submit button */
   .btn {
-    width: 100%;
-    padding: 18px;
-    background: var(--yellow);
-    border: none;
-    border-radius: 50px;
-    font-family: 'Unbounded', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text-dark);
-    cursor: pointer;
-    letter-spacing: 0.3px;
+    width: 100%; padding: 17px;
+    background: var(--yellow); border: none; border-radius: 50px;
+    font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700;
+    color: var(--text-dark); cursor: pointer; letter-spacing: 0.2px;
     transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 6px 20px rgba(245,184,0,0.45);
+    box-shadow: 0 6px 22px rgba(245,184,0,0.5);
     margin-top: 4px;
   }
   .btn:hover {
     background: var(--yellow-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(245,184,0,0.55);
+    box-shadow: 0 10px 30px rgba(245,184,0,0.6);
   }
   .btn:active { transform: translateY(0); }
 
-  /* ── Success overlay ── */
+  /* Success */
   .success-overlay {
     position: absolute; inset: 0;
-    background: var(--green-dark);
+    background: rgba(26,114,53,0.97);
+    backdrop-filter: blur(12px);
     border-radius: 28px;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 16px;
-    z-index: 20;
-    opacity: 0; pointer-events: none;
+    align-items: center; justify-content: center; gap: 16px;
+    z-index: 20; opacity: 0; pointer-events: none;
     transition: opacity 0.4s;
   }
   .success-overlay.show { opacity: 1; pointer-events: all; }
   .success-icon {
-    width: 72px; height: 72px;
+    width: 74px; height: 74px; border-radius: 50%;
     background: var(--yellow);
-    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
-    animation: popIn 0.5s cubic-bezier(.36,1.6,.6,1) both;
+    font-size: 38px;
+    animation: popIn 0.55s cubic-bezier(.36,1.6,.6,1) both;
   }
-  @keyframes popIn {
-    from{transform:scale(0)}
-    to{transform:scale(1)}
-  }
+  @keyframes popIn { from{transform:scale(0)} to{transform:scale(1)} }
   .success-title {
     font-family: 'Unbounded', sans-serif;
-    font-size: 22px; font-weight: 900;
-    color: var(--white);
+    font-size: 22px; font-weight: 900; color: var(--white);
   }
   .success-sub {
     font-size: 15px; font-weight: 600;
@@ -307,55 +262,39 @@
     text-align: center; max-width: 280px;
   }
 
-  /* ── Responsive ── */
   @media (max-width: 768px) {
     html, body { overflow: auto; }
     .page { height: auto; min-height: 100vh; padding: 20px 16px; }
     .card { grid-template-columns: 1fr; min-height: auto; }
-    .left { padding: 40px 28px 28px; }
-    .right { padding: 28px 28px 40px; }
-    .headline { font-size: 30px; }
+    .left { padding: 50px 28px 28px; }
+    .right { padding: 28px 28px 44px; border-left: none; border-top: 1px solid rgba(255,255,255,0.12); }
+    .headline { font-size: 28px; }
     .squiggle-tl { display: none; }
-  }
-
-  /* Entry animation */
-  .card { animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) both; }
-  @keyframes fadeUp {
-    from { opacity:0; transform: translateY(30px) scale(0.97); }
-    to   { opacity:1; transform: translateY(0)   scale(1);    }
   }
 </style>
 </head>
 <body>
 
-<!-- Full-screen green pattern background -->
+<!-- Brand SVG as full-screen background -->
 <div class="bg">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
     <defs>
-      <filter id="blur"><feGaussianBlur stdDeviation="1.5"/></filter>
+      <clipPath id="cp"><rect width="1920" height="1080"/></clipPath>
     </defs>
-    <!-- Voronoi-like cells matching image 2 -->
-    <g fill="none" stroke="#6dd468" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#blur)">
-      <!-- Top row cells -->
-      <path d="M-20 80 C80 -20 240 30 290 140 C340 250 240 330 160 370 C80 410 -10 370 -20 270 Z"/>
-      <path d="M290 140 C370 40 530 -10 580 100 C630 210 540 300 430 320 C320 340 260 250 290 140 Z"/>
-      <path d="M580 100 C650 -20 820 10 870 120 C920 230 840 320 720 340 C600 360 530 220 580 100 Z"/>
-      <path d="M870 120 C940 0 1110 30 1160 150 C1210 270 1120 360 1000 370 C880 380 820 250 870 120 Z"/>
-      <path d="M1160 150 C1240 30 1420 60 1460 190 C1500 320 1400 400 1280 400 C1160 400 1100 270 1160 150 Z"/>
-      <!-- Middle row -->
-      <path d="M-20 370 C60 280 200 310 240 420 C280 530 180 610 70 600 C-40 590 -60 470 -20 370 Z"/>
-      <path d="M160 370 C270 290 430 330 450 460 C470 590 350 650 230 630 C110 610 60 490 160 370 Z"/>
-      <path d="M430 320 C560 250 700 300 710 440 C720 580 590 650 460 630 C330 610 300 400 430 320 Z"/>
-      <path d="M710 440 C760 300 910 280 960 400 C1010 520 920 620 790 630 C660 640 660 570 710 440 Z"/>
-      <path d="M960 400 C1030 280 1190 290 1240 420 C1290 550 1180 640 1050 640 C920 640 880 520 960 400 Z"/>
-      <path d="M1240 420 C1310 290 1470 310 1500 450 C1530 590 1420 660 1300 650 C1180 640 1170 540 1240 420 Z"/>
-      <!-- Bottom row -->
-      <path d="M70 600 C150 510 300 530 330 650 C360 770 260 870 130 860 C0 850 -10 700 70 600 Z"/>
-      <path d="M330 650 C400 540 570 560 590 690 C610 820 490 900 360 890 C230 880 250 770 330 650 Z"/>
-      <path d="M590 690 C650 570 820 580 840 710 C860 840 730 920 600 910 C470 900 520 810 590 690 Z"/>
-      <path d="M840 710 C900 580 1070 590 1090 730 C1110 870 970 940 840 920 C710 900 770 840 840 710 Z"/>
-      <path d="M1090 730 C1160 590 1340 610 1360 760 C1380 910 1230 970 1100 950 C970 930 1010 870 1090 730 Z"/>
-      <path d="M1360 760 C1430 630 1520 660 1540 810 C1560 960 1460 1010 1350 980 C1240 950 1280 890 1360 760 Z"/>
+    <rect fill="#91cc52" width="1920" height="1080"/>
+    <g style="clip-path:url(#cp)">
+      <path fill="#209146" d="M1947.22,1002.83c.02-.58,0-1.14,0-1.7-.54-100.03-3.03-200.18-7.47-296.78-.36-8.39-.67-17.04-.96-25.37-1.44-42.72-2.92-86.86-17.25-120.05-15.77-36.51-44.92-54.84-91.71-57.7-16.01-.99-34.58-1.48-55.21-1.48-53.56,0-116.35,3.37-163.9,8.79-78.7,9.01-194.22,66.79-277.29,113.68-37.25,21.04-60.35,36.31-65.55,82.76-4.37,39.02,35.59,95.97,62.01,133.66,4.02,5.76,7.83,11.17,11.21,16.17,51.58,75.78,104.37,151.29,157.31,225.19h371.62c42.63,0,77.19-34.54,77.19-77.17Z"/>
+      <path fill="#209146" d="M605.33-34H-27c.83,29.11,2,59.79,3.48,92.11,2.74,59.37,11.3,84.8,18.01,95.67,11.1,17.96,27.29,19.02,49.72,20.47l1.44.11c9.58.63,19.17.97,28.44.97,90.88,0,155.76-29.96,237.89-67.87,7.83-3.63,15.79-7.31,23.93-11.03l2.91-1.34c82.85-37.88,176.77-80.81,258.25-124.63,2.82-1.52,5.56-3,8.25-4.46Z"/>
+      <path fill="#209146" d="M578.08,1080c-1.61-77.84-7.98-171.55-36.85-208.91-39.31-50.84-149-51.07-221.58-51.22-12.22-.02-23.79-.05-33.95-.31-10.21-.25-22.36-.79-35.21-1.37-24.22-1.1-51.69-2.33-79.88-2.33-75.33,0-123.8,9.37-148.18,28.62-44.16,34.87-44.85,121.69-45.33,185.07v.36c10.95,29.27,39.18,50.08,72.28,50.08h528.7Z"/>
+      <path fill="#209146" d="M1467.21,1080c-35.64-48.91-70.08-94.96-103.07-137.84-1.99-2.6-4.19-5.49-6.57-8.59-28.89-37.81-89.01-116.47-123.91-128.93-4.8-1.71-9.98-2.58-15.39-2.58-32.7,0-69.59,30.21-96.5,52.26-2.26,1.86-4.44,3.65-6.55,5.36-70.04,56.85-80.98,115.52-96.1,196.71-1.43,7.67-2.89,15.54-4.44,23.61h452.56-.04Z"/>
+      <path fill="#209146" d="M620.34,485.53c-14.6-22.59-41.09-39.96-77.8-64.03l-2-1.3c-68.11-44.67-143.89-87.15-217.18-128.26l-5.87-3.28c-7.42-4.15-15.16-8.61-23.39-13.34-49.12-28.24-110.28-63.4-159.93-68.9-13.5-1.5-31.62-2.33-51.05-2.33s-39.27.85-54.12,2.31c-10.3,1.03-24.83,6.08-31.26,12.8-20.75,21.64-20.81,93.52-20.86,136.47,0,9.1,0,16.96-.2,23.44l-.07,3.23c-2.29,82.73-4.66,168.27,0,251.45,3.1,55.42,12.47,87.91,31.31,108.61,19.24,21.13,50.57,32.7,104.74,38.69,62.08,6.84,130.95,7.53,197.52,8.19,11.71.13,23.28.25,34.61.4,5.97.07,12.83.23,20.12.4,13.9.32,29.67.69,46.49.69,31.26,0,126.35,0,158.42-31.78,26.78-26.53,50.78-126.47,59.75-175.61,8.32-45.69,5.56-74.97-9.26-97.87l.02.04Z"/>
+      <path fill="#209146" d="M1262.63-34h-468.39c26.53,48.08,69.53,105.34,95.77,140.28l1.39,1.86c1.41,1.86,2.91,3.9,4.51,6.06,16.22,21.85,46.45,62.55,70.17,67.42,3.1.63,6.37.94,9.75.94,13.19,0,27.16-4.87,40.57-11.53,13.37-6.68,26.17-15.11,36.96-22.23l1.26-.83c20.23-13.35,41.42-29.27,61.9-44.68,4.85-3.63,9.67-7.25,14.37-10.79,7.89-5.88,15.66-11.57,23.17-17.04,34.83-25.48,64.9-47.48,87.24-75.42,8.55-10.72,15.65-21.98,21.35-34.04h-.02Z"/>
+      <path fill="#209146" d="M1659.34-34h-335.08c4.66,11.89,11.6,22.38,21.95,30.46,31.47,24.53,54.27,34.09,81.3,34.09,15.14,0,32.56-2.91,58.18-9.69,55.17-14.64,114.89-34.18,173.63-54.86h.02Z"/>
+      <path fill="#209146" d="M1245.65,655.63c-1.44-18.79-26.28-49.18-35.62-60.64-53.35-65.29-124.34-138.35-161.9-176.05-1.95-1.95-3.88-3.9-5.79-5.87-30.93-31.2-60.17-60.71-99.53-60.71-8.86,0-18.16,1.53-27.65,4.55-19.06,6.05-63.54,29.65-110.75,58.78-49.63,30.61-88.12,58.45-100.45,72.66-34.33,39.56-57.91,147.75-69.25,199.73l-.47,2.22c-6.91,31.67-12.38,56.72-7.4,75.42,5.04,18.88,21.69,32.38,54.01,43.76,47.41,16.66,114.22,29.65,167.89,40.08,9.31,1.82,18.34,3.56,26.93,5.27,7.04,1.41,14.15,2.91,21.67,4.49,22.9,4.85,46.6,9.85,68.02,11.66,11.95,1.01,21.98,1.48,30.68,1.48,38.91,0,59.18-9.26,100.32-37.09,40.75-27.54,121.04-86.37,133.4-111.84,7.8-16.03,17.05-52.53,15.88-67.91Z"/>
+      <path fill="#209146" d="M959.14,918.25c-35.95-26.46-162.44-52.9-233.74-63.34-15.47-2.27-31.76-4.37-46.09-4.37-19.45,0-33.15,3.93-43.1,12.4-11.51,9.82-19.09,26.66-23.19,51.47-8.61,52.25-6.86,109.63-4.66,165.6h374.91c.69-5.05,1.32-10.09,1.93-15.11.23-2.11.52-4.28.79-6.48,6.1-49.12,13.72-110.3-26.85-140.17Z"/>
+      <path fill="#209146" d="M1942.06,79.64c-.23-6.12-.27-13.14-.34-20.57-.23-24.99-.49-56.07-7.38-81.45-1.14-4.17-2.42-8.05-3.84-11.62h-188.08c-32.11,10.72-62.35,21.8-83.79,29.65-6.05,2.22-11.53,4.2-16.31,5.96-6.7,2.44-14.15,4.96-22.02,7.65-58.76,20.09-147.59,50.41-150.67,109.8-2.56,49.5,57.01,226.65,80.29,277.96,11.78,25.99,23.28,42.55,37.21,53.67,15.03,11.98,34.4,18.64,60.94,20.92,17.38,1.5,44.88,2.38,73.61,2.38,62.8,0,140.3-4.28,169.42-16.3,48.73-20.1,49.7-85.4,50.48-137.86.11-7.99.23-15.52.49-22.65,2.83-72.71,2.83-143.85,0-217.52v-.02Z"/>
+      <path fill="#209146" d="M1512.13,395.16c-18.99-80.62-58.62-209.11-92.11-284.6-18.55-41.89-36.94-60.4-81.95-82.58-13.28-6.53-22.5-9.33-30.84-9.33-10.43,0-20.74,4.46-37.28,13.23-30.45,16.15-63.06,40.77-94.58,64.57-10.12,7.63-19.67,14.87-28.98,21.66-10.38,7.56-21.67,15.61-33.64,24.11-39.79,28.28-84.89,60.35-114.44,88.79-19.94,19.2-25.05,38.58-16.08,61.02,8.34,20.88,27.14,41.06,45.33,60.6,4.94,5.32,9.64,10.36,14.13,15.39,35.16,39.65,75.22,82.93,115.9,125.17,2.85,2.94,5.97,6.24,9.33,9.8,30.08,31.71,80.42,84.78,114.58,89.48,4.22.58,8.23.85,12.24.85,15.21,0,28.1-4.22,43.33-9.75,37.81-13.72,146.31-65.38,169.26-92.38,22.27-26.2,13.16-64.93,5.85-96.05l-.04.02Z"/>
+      <path fill="#209146" d="M934,223.64c-34.43-61.63-100.36-148.11-127.12-182.42-40.23-51.63-62.57-67.35-95.54-67.35-18.12,0-40.93,5.18-73.96,16.78-30.32,10.67-62.19,25.64-93,40.12-8.92,4.19-17.32,8.16-25.77,12.04-11.57,5.32-23.93,10.9-37.03,16.8-59.65,26.89-133.89,60.37-181.19,92.96-23.35,16.12-35.16,30.77-35.05,43.57.16,20.37,29.78,40.12,61.14,61.02l.76.51c22.23,14.82,46.89,29.11,70.71,42.92,8.64,5,17.58,10.18,26.15,15.25,6.7,3.97,14.42,8.61,22.59,13.52,63.33,38.02,169.3,101.69,223.58,105.11,2.02.11,4.11.2,6.17.2,27.83,0,53.83-11.46,77.8-23.8,52.68-27.18,128.35-70.8,169.95-102.27,16.15-12.24,24.09-24.27,24.98-37.88.79-12.27-3.88-26.76-15.21-46.99l.04-.05Z"/>
     </g>
   </svg>
 </div>
@@ -366,14 +305,11 @@
 
     <!-- LEFT -->
     <div class="left">
-      <div class="deco-dots">
-        <span></span><span></span>
-      </div>
+      <div class="deco-dots"><span></span><span></span></div>
 
-      <!-- Top squiggle -->
-      <svg class="squiggle squiggle-tl" width="80" height="50" viewBox="0 0 80 50">
-        <path d="M5 40 C15 5 25 45 35 20 C45 -5 55 40 65 15 C70 5 75 30 78 20"
-              fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round"/>
+      <svg class="squiggle squiggle-tl" width="80" height="48" viewBox="0 0 80 48">
+        <path d="M4 38 C14 4 24 42 34 18 C44 -4 54 38 64 14 C69 4 74 28 78 18"
+              fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3.5" stroke-linecap="round"/>
       </svg>
 
       <div class="badge">
@@ -381,21 +317,20 @@
         <span>Qabul davom etmoqda</span>
       </div>
 
-      <h1 class="headline">Ro'yxatdan o'ting</h1>
+      <h1 class="headline">Ro'yxatdan<br>o'ting</h1>
 
       <p class="subtext">
-        Eslatma!
-        Maktabimiz Toshkent shahri va Samarqand shahrida joylashgan. 
-        Biz faqat tibbiyotga ixtisoslashgan maktabmiz va qabul 5-sinfdan.
+        <strong>Eslatma!</strong><br>
+        Maktabimiz Toshkent shahri va Samarqand shahrida joylashgan.
+        Biz faqat tibbiyotga ixtisoslashgan maktabmiz va qabul <strong>5-sinfdan</strong>.
         Yotoqxona mavjud emas.
       </p>
 
-      <!-- Bottom squiggle -->
-      <svg class="squiggle squiggle-bl" width="70" height="60" viewBox="0 0 70 60">
-        <path d="M5 50 C10 20 25 55 30 30 C35 5 50 45 60 15"
-              fill="none" stroke="rgba(255,80,80,0.7)" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="12" cy="55" r="4" fill="rgba(255,80,80,0.5)"/>
-        <circle cx="55" cy="10" r="3" fill="rgba(255,255,255,0.4)"/>
+      <svg class="squiggle squiggle-bl" width="70" height="58" viewBox="0 0 70 58">
+        <path d="M5 48 C10 18 25 52 30 28 C35 4 50 42 60 12"
+              fill="none" stroke="rgba(255,100,100,0.7)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="12" cy="53" r="4" fill="rgba(255,100,100,0.5)"/>
+        <circle cx="55" cy="8" r="3" fill="rgba(255,255,255,0.4)"/>
       </svg>
     </div>
 
@@ -417,7 +352,7 @@
 
       <div class="field select-wrap">
         <select id="grade">
-          <option value="" disabled selected>Farzandingiz yangi o’quv yilidan qaysi sinfga o’tadi?</option>
+          <option value="" disabled selected>Farzandingiz qaysi sinfga o'tadi?</option>
           <option>5-sinf</option>
           <option>6-sinf</option>
           <option>7-sinf</option>
@@ -448,7 +383,6 @@
 </div>
 
 <script>
-  // Phone mask
   document.getElementById('phone').addEventListener('input', function(e) {
     let v = e.target.value.replace(/\D/g,'');
     if (v.length > 9) v = v.slice(0,9);
@@ -461,49 +395,27 @@
   });
 
   function handleSubmit() {
-    const name = document.getElementById('name').value.trim();
+    const name     = document.getElementById('name').value.trim();
     const district = document.getElementById('district').value;
-    const grade = document.getElementById('grade').value;
-    const phone = document.getElementById('phone').value.trim();
-
-    if (!name) { shake('name'); return; }
+    const grade    = document.getElementById('grade').value;
+    const phone    = document.getElementById('phone').value.trim();
+    if (!name)     { shake('name');    return; }
     if (!district) { shake('district'); return; }
-    if (!grade) { shake('grade'); return; }
-    if (phone.replace(/\D/g,'').length < 9) { shakePhone(); return; }
-
+    if (!grade)    { shake('grade');   return; }
+    if (phone.replace(/\D/g,'').length < 9) { shakeEl(document.querySelector('.phone-wrap')); return; }
     document.getElementById('success').classList.add('show');
   }
 
-  function shake(id) {
-    const el = document.getElementById(id);
-    el.style.animation = 'none';
-    el.offsetHeight;
-    el.style.animation = 'shake 0.4s ease';
-    el.focus();
-    setTimeout(() => el.style.animation = '', 500);
-  }
-
-  function shakePhone() {
-    const el = document.querySelector('.phone-wrap');
-    el.style.animation = 'none';
-    el.offsetHeight;
+  function shake(id) { const el = document.getElementById(id); shakeEl(el); el.focus(); }
+  function shakeEl(el) {
+    el.style.animation = 'none'; el.offsetHeight;
     el.style.animation = 'shake 0.4s ease';
     setTimeout(() => el.style.animation = '', 500);
   }
 
-  // Inject shake keyframes
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes shake {
-      0%,100%{transform:translateX(0)}
-      20%{transform:translateX(-8px)}
-      40%{transform:translateX(8px)}
-      60%{transform:translateX(-5px)}
-      80%{transform:translateX(5px)}
-    }
-    .phone-wrap { animation-fill-mode: both; }
-  `;
-  document.head.appendChild(style);
+  const s = document.createElement('style');
+  s.textContent = `@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}`;
+  document.head.appendChild(s);
 </script>
 </body>
 </html>
