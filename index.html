@@ -398,7 +398,7 @@
 
   /* Sub text */
   .success-sub {
-    font-size: 15px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: rgba(255,255,255,0.7);
     text-align: center;
     max-width: 260px;
@@ -415,10 +415,34 @@
     display: flex; gap: 10px;
     margin-top: 4px;
     opacity: 0;
+    flex-direction: column;
   }
   .success-overlay.show .success-actions {
     animation: fadeSlideUp 0.5s 1.3s both;
   }
+  .btn-tg {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border-radius: 50px;
+  background: #f5b800; border: none;
+  font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700;
+  color: #0d3b1e; cursor: pointer; text-decoration: none;
+  box-shadow: 0 6px 20px rgba(245,184,0,0.45);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-tg:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(245,184,0,0.6); }
+
+.arrow-animated { display: flex; align-items: center; animation: arrowBounce 1.2s ease-in-out infinite; }
+@keyframes arrowBounce {
+  0%,100% { transform: translateX(0); }
+  50%      { transform: translateX(5px); }
+}
+
+.actions-hint {
+  font-size: 11.5px; font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  text-align: center; max-width: 220px; line-height: 1.55;
+  margin: 0;
+}
   .btn-close-success {
     padding: 13px 28px;
     border-radius: 50px;
@@ -559,16 +583,28 @@
 
         <div class="success-badge">✦ Muvaffaqiyatli</div>
 
-        <div class="success-title">Ariza qabul<br>qilindi!</div>
+        <div class="success-title">Ariza qabul qilindi!</div>
 
         <div class="success-divider"></div>
 
         <p class="success-sub">
-          <strong>Tez orada</strong> siz bilan bog'lanamiz.<br>Rahmat sizga!
+          Tez orada sizga <strong>55-557-20-20</strong> raqamidan aloqaga chiqib, batafsil ma'lumot beramiz!
         </p>
 
         <div class="success-actions">
-          <button class="btn-close-success" onclick="location.reload()">Bosh sahifaga qaytish</button>
+          <a href="https://t.me/colbamaktabi" class="btn-tg">
+            <svg style="width:20px;height:20px;flex-shrink:0" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="12" fill="#0088cc"/>
+              <path d="M17.5 6.8L5.3 11.4c-.8.3-.8.8-.1 1l3.1 1 1.2 3.6c.2.5.4.6.8.6.3 0 .4-.1.6-.3l1.5-1.5 3.1 2.3c.6.3 1 .1 1.1-.5l2-9.4c.2-.8-.3-1.1-.9-.9z" fill="#fff"/>
+            </svg>
+            Telegram kanal
+            <span class="arrow-animated">
+              <svg style="width:16px;height:16px" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="#0d3b1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <p class="actions-hint">Yangiliklarni kuzatib borish uchun kanalimizga obuna bo'ling!</p>
         </div>
 
       </div>
