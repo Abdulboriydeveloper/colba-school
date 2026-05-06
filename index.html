@@ -752,8 +752,8 @@
     params.append('fields[PHONE][0][VALUE_TYPE]', 'WORK');
     params.append('fields[STAGE_ID]', 'IN_PROCESS');
     params.append('fields[SOURCE_ID]','WEB');
-    params.append('fields[UF_CRM_1777030859057][0]', filialId);
-    params.append('fields[UF_CRM_1777475112][0]',    gradeId);
+    params.append('fields[UF_CRM_1777030859057]', filialId);
+    params.append('fields[UF_CRM_1777475112]',    gradeId);
 
     try {
       const response = await fetch(BITRIX_URL, {
