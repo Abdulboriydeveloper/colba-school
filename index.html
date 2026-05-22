@@ -55,8 +55,8 @@
   /* ── Card ── */
   .card {
     background: rgba(32, 145, 70, 0.82);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(18px);
     border-radius: 28px;
     width: 100%;
     max-width: 1060px;
@@ -257,7 +257,7 @@
   }
   .error-msg.show { display: block; }
 
-  /* ── SUCCESS OVERLAY (yangi dizayn) ── */
+  /* ── SUCCESS OVERLAY ── */
   .success-overlay {
     position: absolute; inset: 0;
     border-radius: 28px;
@@ -307,7 +307,6 @@
   }
   .check-ring svg {
     width: 96px; height: 96px;
-    /* transform: rotate(-90deg); */
   }
   .check-ring .ring-bg {
     fill: none;
@@ -423,45 +422,28 @@
     animation: fadeSlideUp 0.5s 1.3s both;
   }
   .btn-tg {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 28px; border-radius: 50px;
-  background: #f5b800; border: none;
-  font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700;
-  color: #0d3b1e; cursor: pointer; text-decoration: none;
-  box-shadow: 0 6px 20px rgba(245,184,0,0.45);
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-.btn-tg:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(245,184,0,0.6); }
-
-.arrow-animated { display: flex; align-items: center; animation: arrowBounce 1.2s ease-in-out infinite; }
-@keyframes arrowBounce {
-  0%,100% { transform: translateX(0); }
-  50%      { transform: translateX(5px); }
-}
-
-.actions-hint {
-  font-size: 11.5px; font-weight: 600;
-  color: rgba(255,255,255,0.55);
-  text-align: center; max-width: 220px; line-height: 1.55;
-  margin: 0;
-}
-  .btn-close-success {
-    padding: 13px 28px;
-    border-radius: 50px;
-    background: #f5b800;
-    border: none;
-    font-family: 'Unbounded', sans-serif;
-    font-size: 12px; font-weight: 700;
-    color: #0d3b1e;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(245,184,0,0.4);
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px; border-radius: 50px;
+    background: #f5b800; border: none;
+    font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700;
+    color: #0d3b1e; cursor: pointer; text-decoration: none;
+    box-shadow: 0 6px 20px rgba(245,184,0,0.45);
     transition: transform 0.15s, box-shadow 0.15s;
   }
-  .btn-close-success:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(245,184,0,0.55);
+  .btn-tg:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(245,184,0,0.6); }
+
+  .arrow-animated { display: flex; align-items: center; animation: arrowBounce 1.2s ease-in-out infinite; }
+  @keyframes arrowBounce {
+    0%,100% { transform: translateX(0); }
+    50%      { transform: translateX(5px); }
   }
-  .btn-close-success:active { transform: translateY(0); }
+
+  .actions-hint {
+    font-size: 11.5px; font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    text-align: center; max-width: 220px; line-height: 1.55;
+    margin: 0;
+  }
 
   @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(14px); }
@@ -510,13 +492,13 @@
 
       <h1 class="headline">Ro'yxatdan<br>o'ting</h1>
 
-     <ul class="subtext">
-          <strong>Eslatma!</strong>
+      <ul class="subtext">
+        <strong>Eslatma!</strong>
         <li>
           Maktabimiz Toshkent shahri va Samarqand shahrida joylashgan.
         </li>
         <li>
-          Biz faqat tibbiyotga ixtisoslashgan maktabmiz va qabul 
+          Biz faqat tibbiyotga ixtisoslashgan maktabmiz va qabul
           <strong>5-sinfdan</strong>.
         </li>
         <li>
@@ -534,22 +516,22 @@
       <div class="field select-wrap">
         <select id="district">
           <option value="" disabled selected>Qaysi filialimiz sizga qulay?</option>
-          <option>Tinchlik filiali (Toshkent shahri)</option>
-          <option>Chilonzor filiali (Toshkent shahri)</option>
-          <option>Yunusobod filiali (Toshkent shahri)</option>
-          <option>Samarqand filiali (Samarqand shahri)</option>
+          <option value="tinchlik">Tinchlik filiali (Toshkent shahri)</option>
+          <option value="chilonzor">Chilonzor filiali (Toshkent shahri)</option>
+          <option value="yunusobod">Yunusobod filiali (Toshkent shahri)</option>
+          <option value="samarqand">Samarqand filiali (Samarqand shahri)</option>
         </select>
       </div>
 
       <div class="field select-wrap">
         <select id="grade">
           <option value="" disabled selected>Farzandingiz qaysi sinfga o'tadi?</option>
-          <option>5-sinf</option>
-          <option>6-sinf</option>
-          <option>7-sinf</option>
-          <option>8-sinf</option>
-          <option>9-sinf</option>
-          <option>10-sinf</option>
+          <option value="5">5-sinf</option>
+          <option value="6">6-sinf</option>
+          <option value="7">7-sinf</option>
+          <option value="8">8-sinf</option>
+          <option value="9">9-sinf</option>
+          <option value="10">10-sinf</option>
         </select>
       </div>
 
@@ -568,7 +550,7 @@
       </button>
     </div>
 
-    <!-- SUCCESS (yangi dizayn) -->
+    <!-- SUCCESS -->
     <div class="success-overlay" id="success">
       <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
 
@@ -625,22 +607,48 @@
 <script>
   const BITRIX_URL = 'https://colba-crm.bitrix24.kz/rest/1/tujlbuciogxsgoij/crm.lead.add.json';
 
-  /* ── Filial ID mapping ── */
+  /* ── Filial ID mapping (value → Bitrix ID) ── */
   const FILIAL_IDS = {
-    'Tinchlik filiali (Toshkent shahri)':  1147,
-    'Chilonzor filiali (Toshkent shahri)': 775,
-    'Yunusobod filiali (Toshkent shahri)': 779,
-    'Samarqand filiali (Samarqand shahri)': 1075,
+    'tinchlik':  1147,
+    'chilonzor': 775,
+    'yunusobod': 779,
+    'samarqand': 1075,
   };
 
-  /* ── Sinf ID mapping ── */
+  /* ── Sinf ID mapping (value → Bitrix ID) ── */
   const GRADE_IDS = {
-    '5-sinf':  1095,
-    '6-sinf':  1097,
-    '7-sinf':  1099,
-    '8-sinf':  1101,
-    '9-sinf':  1103,
-    '10-sinf': 1105,
+    '5':  1095,
+    '6':  1097,
+    '7':  1099,
+    '8':  1101,
+    '9':  1103,
+    '10': 1105,
+  };
+
+  /* ── Shahar (hudud) ID mapping — filialga qarab ── */
+  const CITY_IDS = {
+    'tinchlik':  1211,   // Toshkent
+    'chilonzor': 1211,   // Toshkent
+    'yunusobod': 1211,   // Toshkent
+    'samarqand': 1213,   // Samarqand
+  };
+
+  /* ── Filial display nomi (title uchun) ── */
+  const FILIAL_LABELS = {
+    'tinchlik':  'Tinchlik filiali (Toshkent shahri)',
+    'chilonzor': 'Chilonzor filiali (Toshkent shahri)',
+    'yunusobod': 'Yunusobod filiali (Toshkent shahri)',
+    'samarqand': 'Samarqand filiali (Samarqand shahri)',
+  };
+
+  /* ── Sinf display nomi (title uchun) ── */
+  const GRADE_LABELS = {
+    '5':  '5-sinf',
+    '6':  '6-sinf',
+    '7':  '7-sinf',
+    '8':  '8-sinf',
+    '9':  '9-sinf',
+    '10': '10-sinf',
   };
 
   /* ── Phone mask ── */
@@ -728,8 +736,8 @@
     const errorMsg   = document.getElementById('errorMsg');
 
     const name     = nameEl.value.trim();
-    const district = districtEl.value;
-    const grade    = gradeEl.value;
+    const district = districtEl.value;   // 'tinchlik' | 'chilonzor' | 'yunusobod' | 'samarqand'
+    const grade    = gradeEl.value;      // '5' | '6' | ... | '10'
     const phoneRaw = phoneEl.value.replace(/\D/g,'');
 
     /* Validation */
@@ -743,19 +751,23 @@
     btn.classList.add('loading');
     btn.disabled = true;
 
-    const fullPhone = '+998' + phoneRaw;
-    const filialId  = FILIAL_IDS[district];
-    const gradeId   = GRADE_IDS[grade];
+    const fullPhone   = '+998' + phoneRaw;
+    const filialId    = FILIAL_IDS[district];
+    const gradeId     = GRADE_IDS[grade];
+    const cityId      = CITY_IDS[district];
+    const filialLabel = FILIAL_LABELS[district];
+    const gradeLabel  = GRADE_LABELS[grade];
 
     const params = new URLSearchParams();
-    params.append('fields[TITLE]',    `${name} | ${district} | ${grade} | WEB SITE`);
+    params.append('fields[TITLE]',    `${name} | ${filialLabel} | ${gradeLabel} | WEB SITE`);
     params.append('fields[NAME]',     name);
     params.append('fields[PHONE][0][VALUE]',      fullPhone);
     params.append('fields[PHONE][0][VALUE_TYPE]', 'WORK');
     params.append('fields[STAGE_ID]', 'IN_PROCESS');
     params.append('fields[SOURCE_ID]','WEB');
-    params.append('fields[UF_CRM_1777030859057]', filialId);
-    params.append('fields[UF_CRM_1777475112]',    gradeId);
+    params.append('fields[UF_CRM_1777030859057]', filialId);   // Filial
+    params.append('fields[UF_CRM_1777475112]',    gradeId);    // Sinf
+    params.append('fields[UF_CRM_1778050483331]', cityId);     // Shahar (Toshkent / Samarqand)
 
     try {
       const response = await fetch(BITRIX_URL, {
