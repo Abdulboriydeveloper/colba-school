@@ -24,7 +24,6 @@
     overflow: hidden;
   }
 
-  /* ── Background ── */
   .bg {
     position: fixed; inset: 0;
     z-index: 0;
@@ -42,7 +41,6 @@
     transform: scale(1.04);
   }
 
-  /* ── Page ── */
   .page {
     position: relative; z-index: 10;
     width: 100%; height: 100vh;
@@ -52,7 +50,6 @@
     padding: 24px;
   }
 
-  /* ── Card ── */
   .card {
     background: rgba(32, 145, 70, 0.82);
     backdrop-filter: blur(0);
@@ -77,7 +74,6 @@
     to   { opacity:1; transform: translateY(0) scale(1); }
   }
 
-  /* ── LEFT ── */
   .left {
     position: relative; z-index: 1;
     padding: 52px 44px;
@@ -135,7 +131,6 @@
   }
   .subtext strong { color: var(--yellow); font-weight: 800; }
 
-  /* ── RIGHT ── */
   .right {
     position: relative; z-index: 1;
     padding: 44px 44px;
@@ -215,7 +210,6 @@
   }
   .phone-input::placeholder { color: #bbb; font-weight: 500; }
 
-  /* Button */
   .btn {
     width: 100%; padding: 17px;
     background: var(--yellow); border: none; border-radius: 50px;
@@ -230,7 +224,6 @@
   .btn:active { transform: translateY(0); }
   .btn:disabled { opacity: 0.75; cursor: not-allowed; transform: none; }
 
-  /* Spinner */
   .spinner {
     width: 18px; height: 18px;
     border: 2.5px solid rgba(13,59,30,0.25);
@@ -244,7 +237,6 @@
   .btn.loading .btn-text { opacity: 0.7; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Error message */
   .error-msg {
     background: rgba(255,60,60,0.18);
     border: 1px solid rgba(255,80,80,0.35);
@@ -257,7 +249,6 @@
   }
   .error-msg.show { display: block; }
 
-  /* ── SUCCESS OVERLAY ── */
   .success-overlay {
     position: absolute; inset: 0;
     border-radius: 28px;
@@ -300,7 +291,6 @@
     align-items: center; gap: 16px;
   }
 
-  /* Animated ring + check */
   .check-ring {
     width: 96px; height: 96px;
     position: relative;
@@ -356,7 +346,6 @@
   }
   @keyframes drawCheck { to { stroke-dashoffset: 0; } }
 
-  /* Badge */
   .success-badge {
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.2);
@@ -372,7 +361,6 @@
     animation: fadeSlideUp 0.5s 1.0s both;
   }
 
-  /* Title */
   .success-title {
     font-family: 'Unbounded', sans-serif;
     font-size: clamp(22px, 2.2vw, 28px);
@@ -386,7 +374,6 @@
     animation: fadeSlideUp 0.5s 1.1s both;
   }
 
-  /* Divider */
   .success-divider {
     width: 40px; height: 3px;
     background: #f5b800;
@@ -397,7 +384,6 @@
     animation: fadeSlideUp 0.5s 1.15s both;
   }
 
-  /* Sub text */
   .success-sub {
     font-size: 12px; font-weight: 600;
     color: rgba(255,255,255,0.7);
@@ -411,7 +397,6 @@
     animation: fadeSlideUp 0.5s 1.2s both;
   }
 
-  /* Action button */
   .success-actions {
     display: flex; gap: 10px;
     margin-top: 4px;
@@ -450,7 +435,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── Responsive ── */
   @media (max-width: 768px) {
     html, body { overflow: auto; }
     .page { height: auto; min-height: 100vh; padding: 20px 16px; }
@@ -472,16 +456,13 @@
 </head>
 <body>
 
-<!-- Background -->
 <div class="bg">
   <img src="bg.svg" alt="">
 </div>
 
-<!-- Page -->
 <div class="page">
   <div class="card">
 
-    <!-- LEFT -->
     <div class="left">
       <div class="deco-dots"><span></span><span></span></div>
 
@@ -494,16 +475,9 @@
 
       <ul class="subtext">
         <strong>Eslatma!</strong>
-        <li>
-          Maktabimiz Toshkent shahri va Samarqand shahrida joylashgan.
-        </li>
-        <li>
-          Biz faqat tibbiyotga ixtisoslashgan maktabmiz va qabul
-          <strong>5-sinfdan</strong>.
-        </li>
-        <li>
-          Yotoqxona mavjud emas!
-        </li>
+        <li>Maktabimiz Toshkent shahri va Samarqand shahrida joylashgan.</li>
+        <li>Biz faqat tibbiyotga ixtisoslashgan maktabmiz va qabul <strong>5-sinfdan</strong>.</li>
+        <li>Yotoqxona mavjud emas!</li>
       </ul>
     </div>
 
@@ -536,9 +510,7 @@
       </div>
 
       <div class="phone-wrap">
-        <div class="phone-flag">
-          +998
-        </div>
+        <div class="phone-flag">+998</div>
         <input class="phone-input" type="tel" id="phone" placeholder="00-000-0000" maxlength="12" autocomplete="off"/>
       </div>
 
@@ -553,13 +525,10 @@
     <!-- SUCCESS -->
     <div class="success-overlay" id="success">
       <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
-
       <div class="glow-circle glow-1"></div>
       <div class="glow-circle glow-2"></div>
 
       <div class="success-content">
-
-        <!-- Animated ring + check -->
         <div class="check-ring">
           <svg viewBox="0 0 96 96">
             <circle class="ring-bg" cx="48" cy="48" r="44"/>
@@ -573,11 +542,8 @@
         </div>
 
         <div class="success-badge">✦ Muvaffaqiyatli</div>
-
         <div class="success-title">Ariza qabul qilindi!</div>
-
         <div class="success-divider"></div>
-
         <p class="success-sub">
           Tez orada sizga <strong>55-557-20-20</strong> raqamidan aloqaga chiqib, batafsil ma'lumot beramiz!
         </p>
@@ -597,7 +563,6 @@
           </a>
           <p class="actions-hint">Yangiliklarni kuzatib borish uchun kanalimizga obuna bo'ling!</p>
         </div>
-
       </div>
     </div>
 
@@ -607,7 +572,6 @@
 <script>
   const BITRIX_URL = 'https://colba-crm.bitrix24.kz/rest/1/tujlbuciogxsgoij/crm.lead.add.json';
 
-  /* ── Filial ID mapping (value → Bitrix ID) ── */
   const FILIAL_IDS = {
     'tinchlik':  1147,
     'chilonzor': 775,
@@ -615,25 +579,18 @@
     'samarqand': 1075,
   };
 
-  /* ── Sinf ID mapping (value → Bitrix ID) ── */
   const GRADE_IDS = {
-    '5':  1095,
-    '6':  1097,
-    '7':  1099,
-    '8':  1101,
-    '9':  1103,
-    '10': 1105,
+    '5':  1095, '6':  1097, '7':  1099,
+    '8':  1101, '9':  1103, '10': 1105,
   };
 
-  /* ── Shahar (hudud) ID mapping — filialga qarab ── */
   const CITY_IDS = {
-    'tinchlik':  1211,   // Toshkent
-    'chilonzor': 1211,   // Toshkent
-    'yunusobod': 1211,   // Toshkent
-    'samarqand': 1213,   // Samarqand
+    'tinchlik':  1211,
+    'chilonzor': 1211,
+    'yunusobod': 1211,
+    'samarqand': 1213,
   };
 
-  /* ── Filial display nomi (title uchun) ── */
   const FILIAL_LABELS = {
     'tinchlik':  'Tinchlik filiali (Toshkent shahri)',
     'chilonzor': 'Chilonzor filiali (Toshkent shahri)',
@@ -641,15 +598,17 @@
     'samarqand': 'Samarqand filiali (Samarqand shahri)',
   };
 
-  /* ── Sinf display nomi (title uchun) ── */
   const GRADE_LABELS = {
-    '5':  '5-sinf',
-    '6':  '6-sinf',
-    '7':  '7-sinf',
-    '8':  '8-sinf',
-    '9':  '9-sinf',
-    '10': '10-sinf',
+    '5':'5-sinf','6':'6-sinf','7':'7-sinf',
+    '8':'8-sinf','9':'9-sinf','10':'10-sinf',
   };
+
+  /* ── Kreativni URL'dan olish ── */
+  function getCreative() {
+    const params = new URLSearchParams(window.location.search);
+    // utm_creative yoki utm_campaign dan oladi
+    return params.get('utm_creative') || params.get('utm_campaign') || 'organic';
+  }
 
   /* ── Phone mask ── */
   document.getElementById('phone').addEventListener('input', function(e) {
@@ -663,7 +622,6 @@
     e.target.value = out;
   });
 
-  /* ── Shake helper ── */
   function shake(id) { const el = document.getElementById(id); shakeEl(el); el.focus(); }
   function shakeEl(el) {
     el.style.animation = 'none'; el.offsetHeight;
@@ -671,7 +629,6 @@
     setTimeout(() => el.style.animation = '', 500);
   }
 
-  /* ── Confetti ── */
   function startConfetti() {
     const canvas = document.getElementById('confettiCanvas');
     const ctx = canvas.getContext('2d');
@@ -686,8 +643,7 @@
       r: 4 + Math.random() * 5,
       d: 0.8 + Math.random() * 2.2,
       color: colors[Math.floor(Math.random() * colors.length)],
-      tilt: 0,
-      tiltAngle: 0,
+      tilt: 0, tiltAngle: 0,
       tiltSpeed: 0.05 + Math.random() * 0.08,
       shape: Math.random() > 0.5 ? 'circle' : 'rect',
       started: Date.now() + Math.random() * 700
@@ -722,7 +678,6 @@
       }
       if (active) requestAnimationFrame(draw);
     }
-
     setTimeout(draw, 800);
   }
 
@@ -736,18 +691,19 @@
     const errorMsg   = document.getElementById('errorMsg');
 
     const name     = nameEl.value.trim();
-    const district = districtEl.value;   // 'tinchlik' | 'chilonzor' | 'yunusobod' | 'samarqand'
-    const grade    = gradeEl.value;      // '5' | '6' | ... | '10'
+    const district = districtEl.value;
+    const grade    = gradeEl.value;
     const phoneRaw = phoneEl.value.replace(/\D/g,'');
 
-    /* Validation */
+    // 🎯 Kreativni olish
+    const creative = getCreative();
+
     errorMsg.classList.remove('show');
     if (!name)               { shake('name');     return; }
     if (!district)           { shake('district'); return; }
     if (!grade)              { shake('grade');    return; }
     if (phoneRaw.length < 9) { shakeEl(document.querySelector('.phone-wrap')); return; }
 
-    /* Loading */
     btn.classList.add('loading');
     btn.disabled = true;
 
@@ -758,16 +714,20 @@
     const filialLabel = FILIAL_LABELS[district];
     const gradeLabel  = GRADE_LABELS[grade];
 
+    // 🎯 Title'ga kreativ qo'shiladi — Bitrix'da ko'rinadi
     const params = new URLSearchParams();
-    params.append('fields[TITLE]',    `${name} | ${filialLabel} | ${gradeLabel} | WEB SITE`);
+    params.append('fields[TITLE]',    `${name} | ${filialLabel} | ${gradeLabel} | ${creative} | WEB SITE`);
     params.append('fields[NAME]',     name);
     params.append('fields[PHONE][0][VALUE]',      fullPhone);
     params.append('fields[PHONE][0][VALUE_TYPE]', 'WORK');
     params.append('fields[STAGE_ID]', 'IN_PROCESS');
     params.append('fields[SOURCE_ID]','WEB');
-    params.append('fields[UF_CRM_1777030859057]', filialId);   // Filial
-    params.append('fields[UF_CRM_1777475112]',    gradeId);    // Sinf
-    params.append('fields[UF_CRM_1778050483331]', cityId);     // Shahar (Toshkent / Samarqand)
+    params.append('fields[UF_CRM_1777030859057]', filialId);
+    params.append('fields[UF_CRM_1777475112]',    gradeId);
+    params.append('fields[UF_CRM_1778050483331]', cityId);
+
+    // 🎯 Kreativ — Bitrix COMMENT maydoniga ham yoziladi
+    params.append('fields[COMMENTS]', `Manba: Telegram Ads | Kreativ: ${creative}`);
 
     try {
       const response = await fetch(BITRIX_URL, {
@@ -779,6 +739,14 @@
       const data = await response.json();
 
       if (data && data.result) {
+        // 🎯 Meta Pixel event — kreativ bilan
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'CompleteRegistration', {
+            content_name: creative,
+            status: true
+          });
+        }
+
         document.getElementById('success').classList.add('show');
         startConfetti();
       } else {
