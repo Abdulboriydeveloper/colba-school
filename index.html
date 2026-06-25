@@ -221,6 +221,7 @@ const GRADE_LABELS={'5':'5-sinf','6':'6-sinf','7':'7-sinf','8':'8-sinf','9':'9-s
 const TG_LINKS={tinchlik:'https://t.me/colba_taqdimot',chilonzor:'https://t.me/colba_taqdimot',yunusobod:'https://t.me/colba_taqdimot',samarqand:'https://t.me/colba_maktabi_samarqand'};
 
 /* ── UTM o'qish funksiyalari ── */
+/* ── UTM o'qish ── */
 function getCreative(){
   const p=new URLSearchParams(window.location.search);
   return p.get('utm_creative')||p.get('utm_campaign')||'organic';
@@ -236,6 +237,18 @@ function getMedium(){
 function getCampaign(){
   const p=new URLSearchParams(window.location.search);
   return p.get('utm_campaign')||'-';
+}
+
+/* ── UTM → Bitrix SOURCE_ID mapping ── */
+function getBitrixSource(utmSource){
+  const map={
+    'youtube':   'ADVERTISING',
+    'instagram': 'ADVERTISING',
+    'telegram':  'ADVERTISING',
+    'facebook':  'ADVERTISING',
+    'organic':   'WEB',
+  };
+  return map[utmSource]||'WEB';
 }
 
 document.getElementById('phone').addEventListener('input',function(e){
@@ -328,12 +341,12 @@ function handleSubmit(){
   /* ── Bitrix ga background da yuboramiz ── */
   const fullPhone='+998'+phoneRaw;
   sendToBitrix({
-    'fields[TITLE]':`${name}|${FILIAL_LABELS[district]}|${GRADE_LABELS[grade]}|${source}/${creative}|WEB SITE`,
+    'fields[TITLE]':`${name} | ${source} | ${creative} | ${FILIAL_LABELS[district]} | ${GRADE_LABELS[grade]}`,
     'fields[NAME]':name,
     'fields[PHONE][0][VALUE]':fullPhone,
     'fields[PHONE][0][VALUE_TYPE]':'WORK',
     'fields[STAGE_ID]':'IN_PROCESS',
-    'fields[SOURCE_ID]':'WEB',
+    'fields[SOURCE_ID]':getBitrixSource(source),
     'fields[UF_CRM_1777030859057]':FILIAL_IDS[district],
     'fields[UF_CRM_1777475112]':GRADE_IDS[grade],
     'fields[UF_CRM_1778050483331]':CITY_IDS[district],
