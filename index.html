@@ -49,8 +49,6 @@ input:focus,select:focus{border-color:var(--y);box-shadow:0 0 0 4px rgba(245,184
 .btn:active{transform:translateY(0)}
 .error-msg{background:rgba(255,60,60,0.18);border:1px solid rgba(255,80,80,0.35);border-radius:14px;padding:12px 18px;font-size:13px;font-weight:700;color:#fff;text-align:center;display:none}
 .error-msg.show{display:block}
-
-/* ── SUCCESS OVERLAY ── */
 .success-overlay{
   position:absolute;inset:0;border-radius:28px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -61,10 +59,7 @@ input:focus,select:focus{border-color:var(--y);box-shadow:0 0 0 4px rgba(245,184
   will-change:opacity;
 }
 .success-overlay.show{opacity:1;pointer-events:all}
-
 .success-content{display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;z-index:2}
-
-/* check animatsiya */
 .check-ring{width:96px;height:96px;position:relative}
 .check-ring svg{width:96px;height:96px}
 .ring-bg{fill:none;stroke:rgba(255,255,255,0.1);stroke-width:4}
@@ -78,31 +73,24 @@ input:focus,select:focus{border-color:var(--y);box-shadow:0 0 0 4px rgba(245,184
 .check-path{stroke:#0d3b1e;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;fill:none;stroke-dasharray:50;stroke-dashoffset:50}
 .success-overlay.show .check-path{animation:drawCheck .35s .75s ease forwards}
 @keyframes drawCheck{to{stroke-dashoffset:0}}
-
-/* matnlar */
 .s-badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:5px 16px;font-size:11px;font-weight:800;color:#f5b800;letter-spacing:1.5px;text-transform:uppercase;opacity:0}
 .s-title{font-family:'Unbounded',sans-serif;font-size:clamp(22px,2.2vw,28px);font-weight:900;color:#fff;text-align:center;line-height:1.2;opacity:0}
 .s-divider{width:40px;height:3px;background:#f5b800;border-radius:10px;opacity:0}
 .s-sub{font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);text-align:center;max-width:260px;line-height:1.6;opacity:0}
 .s-sub strong{color:rgba(255,255,255,0.95)}
 .s-actions{display:flex;gap:10px;margin-top:4px;flex-direction:column;opacity:0}
-
 .success-overlay.show .s-badge  {animation:fsu .4s .85s both}
 .success-overlay.show .s-title  {animation:fsu .4s .92s both}
 .success-overlay.show .s-divider{animation:fsu .4s .97s both}
 .success-overlay.show .s-sub    {animation:fsu .4s 1.02s both}
 .success-overlay.show .s-actions{animation:fsu .4s 1.08s both}
 @keyframes fsu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
 .btn-tg{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:50px;background:#f5b800;border:none;font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:#0d3b1e;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(245,184,0,0.45);transition:transform .15s,box-shadow .15s}
 .btn-tg:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,184,0,0.6)}
 .arrow-anim{display:flex;align-items:center;animation:ab 1.2s ease-in-out infinite}
 @keyframes ab{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
 .actions-hint{font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.55);text-align:center;max-width:220px;line-height:1.55}
-
-/* confetti */
 .confetti-canvas{position:absolute;inset:0;pointer-events:none;border-radius:28px}
-
 @media(max-width:768px){
   html,body{overflow:auto}
   .page{height:auto;min-height:100vh;padding:20px 16px}
@@ -220,37 +208,37 @@ const FILIAL_LABELS={tinchlik:'Tinchlik filiali (Toshkent shahri)',chilonzor:'Ch
 const GRADE_LABELS={'5':'5-sinf','6':'6-sinf','7':'7-sinf','8':'8-sinf','9':'9-sinf','10':'10-sinf'};
 const TG_LINKS={tinchlik:'https://t.me/colba_taqdimot',chilonzor:'https://t.me/colba_taqdimot',yunusobod:'https://t.me/colba_taqdimot',samarqand:'https://t.me/colba_maktabi_samarqand'};
 
-/* ── UTM o'qish funksiyalari ── */
-/* ── UTM o'qish ── */
+/* ══════════════════════════════════════
+   UTM o'qish
+══════════════════════════════════════ */
+function getParam(key){
+  return new URLSearchParams(window.location.search).get(key)||'';
+}
+function getSource()  { return getParam('utm_source')  ||'organic'; }
+function getMedium()  { return getParam('utm_medium')  ||'-';       }
+function getCampaign(){ return getParam('utm_campaign')||'-';       }
 function getCreative(){
-  const p=new URLSearchParams(window.location.search);
-  return p.get('utm_creative')||p.get('utm_campaign')||'organic';
-}
-function getSource(){
-  const p=new URLSearchParams(window.location.search);
-  return p.get('utm_source')||'organic';
-}
-function getMedium(){
-  const p=new URLSearchParams(window.location.search);
-  return p.get('utm_medium')||'-';
-}
-function getCampaign(){
-  const p=new URLSearchParams(window.location.search);
-  return p.get('utm_campaign')||'-';
+  return getParam('utm_creative')||getParam('utm_campaign')||'organic';
 }
 
-/* ── UTM → Bitrix SOURCE_ID mapping ── */
-function getBitrixSource(utmSource){
+/* ══════════════════════════════════════
+   UTM source → Bitrix SOURCE_ID
+   (Bitrix faqat tayyor qiymatlar oladi)
+══════════════════════════════════════ */
+function getBitrixSource(src){
   const map={
-    'youtube':   'ADVERTISING',
-    'instagram': 'ADVERTISING',
-    'telegram':  'ADVERTISING',
-    'facebook':  'ADVERTISING',
-    'organic':   'WEB',
+    youtube  :'ADVERTISING',
+    instagram:'ADVERTISING',
+    telegram :'ADVERTISING',
+    facebook :'ADVERTISING',
+    organic  :'WEB',
   };
-  return map[utmSource]||'WEB';
+  return map[src]||'WEB';
 }
 
+/* ══════════════════════════════════════
+   Telefon formatlash
+══════════════════════════════════════ */
 document.getElementById('phone').addEventListener('input',function(e){
   let v=e.target.value.replace(/\D/g,'');
   if(v.length>9)v=v.slice(0,9);
@@ -262,17 +250,30 @@ document.getElementById('phone').addEventListener('input',function(e){
   e.target.value=o;
 });
 
+/* ══════════════════════════════════════
+   Validatsiya
+══════════════════════════════════════ */
 function shakeEl(el){el.style.animation='none';el.offsetHeight;el.style.animation='shake 0.4s ease';setTimeout(()=>el.style.animation='',500)}
 function shake(id){const el=document.getElementById(id);shakeEl(el);el.focus()}
 
+/* ══════════════════════════════════════
+   Bitrix ga yuborish
+══════════════════════════════════════ */
 function sendToBitrix(payload){
   const p=new URLSearchParams(payload);
   fetch(BITRIX_URL,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()})
     .then(r=>r.json())
-    .then(d=>{if(typeof fbq!=='undefined'&&d&&d.result){fbq('track','CompleteRegistration',{content_name:payload['fields[COMMENTS]'],status:true})}})
-    .catch(e=>console.error('Bitrix:',e));
+    .then(d=>{
+      if(typeof fbq!=='undefined'&&d&&d.result){
+        fbq('track','CompleteRegistration',{content_name:payload['fields[COMMENTS]'],status:true});
+      }
+    })
+    .catch(e=>console.error('Bitrix error:',e));
 }
 
+/* ══════════════════════════════════════
+   Success ekran
+══════════════════════════════════════ */
 function startConfetti(){
   const canvas=document.getElementById('confettiCanvas');
   const ctx=canvas.getContext('2d');
@@ -311,46 +312,66 @@ function showSuccess(district){
   startConfetti();
 }
 
+/* ══════════════════════════════════════
+   ASOSIY SUBMIT
+══════════════════════════════════════ */
 function handleSubmit(){
-  const nameEl=document.getElementById('name');
+  const nameEl    =document.getElementById('name');
   const districtEl=document.getElementById('district');
-  const gradeEl=document.getElementById('grade');
-  const phoneEl=document.getElementById('phone');
-  const errorMsg=document.getElementById('errorMsg');
+  const gradeEl   =document.getElementById('grade');
+  const phoneEl   =document.getElementById('phone');
+  const errorMsg  =document.getElementById('errorMsg');
 
-  const name=nameEl.value.trim();
+  const name    =nameEl.value.trim();
   const district=districtEl.value;
-  const grade=gradeEl.value;
+  const grade   =gradeEl.value;
   const phoneRaw=phoneEl.value.replace(/\D/g,'');
 
-  /* ── UTM qiymatlarini olamiz ── */
-  const source=getSource();
-  const medium=getMedium();
-  const campaign=getCampaign();
-  const creative=getCreative();
+  /* UTM qiymatlar */
+  const source  =getSource();    // 'youtube' | 'instagram' | 'telegram' | 'organic'
+  const medium  =getMedium();    // 'video' | 'social' | 'ads'
+  const campaign=getCampaign();  // 'colba_qabul'
+  const creative=getCreative();  // 'yt_c1' | 'ig_c1' | 'tg_c1' | 'youtube_bio' ...
 
   errorMsg.classList.remove('show');
-  if(!name){shake('name');return}
-  if(!district){shake('district');return}
-  if(!grade){shake('grade');return}
+  if(!name)           {shake('name');return}
+  if(!district)       {shake('district');return}
+  if(!grade)          {shake('grade');return}
   if(phoneRaw.length<9){shakeEl(document.querySelector('.phone-wrap'));return}
 
-  /* ── Darhol thank you page ko'rsatamiz ── */
+  /* Darhol success ko'rsatamiz */
   showSuccess(district);
 
-  /* ── Bitrix ga background da yuboramiz ── */
+  /* Bitrix ga yuboramiz */
   const fullPhone='+998'+phoneRaw;
+
   sendToBitrix({
-    'fields[TITLE]':`${name} | ${source} | ${creative} | ${FILIAL_LABELS[district]} | ${GRADE_LABELS[grade]}`,
-    'fields[NAME]':name,
-    'fields[PHONE][0][VALUE]':fullPhone,
-    'fields[PHONE][0][VALUE_TYPE]':'WORK',
-    'fields[STAGE_ID]':'IN_PROCESS',
-    'fields[SOURCE_ID]':getBitrixSource(source),
-    'fields[UF_CRM_1777030859057]':FILIAL_IDS[district],
-    'fields[UF_CRM_1777475112]':GRADE_IDS[grade],
-    'fields[UF_CRM_1778050483331]':CITY_IDS[district],
-    'fields[COMMENTS]':`Manba: ${source} | Medium: ${medium} | Kampaniya: ${campaign} | Kreativ: ${creative}`,
+    /* ── Sarlavha: Bitrix listda birinchi ko'rinadigan maydon ── */
+    'fields[TITLE]': `${name} | ${source} | ${creative} | ${FILIAL_LABELS[district]} | ${GRADE_LABELS[grade]}`,
+
+    'fields[NAME]' : name,
+
+    'fields[PHONE][0][VALUE]'     : fullPhone,
+    'fields[PHONE][0][VALUE_TYPE]': 'WORK',
+
+    'fields[STAGE_ID]' : 'IN_PROCESS',
+
+    /* SOURCE_ID: youtube/instagram/telegram → ADVERTISING, boshqa → WEB */
+    'fields[SOURCE_ID]': getBitrixSource(source),
+
+    /* ── Bitrix o'z tayyor UTM maydonlari ── */
+    'fields[UTM_SOURCE]'  : source,    // 'youtube' | 'instagram' | 'telegram' | 'organic'
+    'fields[UTM_MEDIUM]'  : medium,    // 'video' | 'social' | 'ads'
+    'fields[UTM_CAMPAIGN]': campaign,  // 'colba_qabul'
+    'fields[UTM_CONTENT]' : creative,  // 'tg_c1' | 'ig_c1' | 'youtube_bio' ...
+
+    /* Filial, sinf, shahar */
+    'fields[UF_CRM_1777030859057]': FILIAL_IDS[district],
+    'fields[UF_CRM_1777475112]'   : GRADE_IDS[grade],
+    'fields[UF_CRM_1778050483331]': CITY_IDS[district],
+
+    /* To'liq izoh */
+    'fields[COMMENTS]': `Manba: ${source} | Medium: ${medium} | Kampaniya: ${campaign} | Kreativ: ${creative}`,
   });
 }
 </script>
